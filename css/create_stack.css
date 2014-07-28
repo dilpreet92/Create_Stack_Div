@@ -1,0 +1,20 @@
+.container {
+  width : 200px;
+  height : 200px;
+  border : 2px solid black;
+}
+.highlight {
+  width: 200px;
+	height: 10px;	
+  background-color: yellow;
+}
+input {
+  position: absolute;
+    left: 225px;
+    top: 12px;
+}
+.innerClass {
+	width: 200px;
+	height: 10px;
+	border: 1px solid black;
+}
