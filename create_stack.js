@@ -1,36 +1,37 @@
-function createStack() {
+function CreateStack() {
   this.count = 0 ;
-  this.currentDiv = "";
+  this.bindEvents();
 }
-createStack.prototype.addDivTag = function() {
+CreateStack.prototype.addDivTag = function() {
   this.count += 1;
-  this.currentDiv = $("<div/>")
-    .addClass("innerClass").attr("id", "divInner"+ this.count)
-      .appendTo(".container");
+  this.currentDiv = $("<div/>").addClass("innerClass")
+                               .attr("id", "divInner"+ this.count)
+                               .appendTo(".container");
 };
 
-createStack.prototype.removeDivTag = function() {
+CreateStack.prototype.removeDivTag = function() {
   this.count -= 1;
-  this.currentDiv = this.currentDiv.hide().prev();
+  var currentDivElement = this.currentDiv;
+  this.currentDiv = this.currentDiv.prev();
+  currentDivElement.remove();
 };
 
-createStack.prototype.bindEvents = function() {
+CreateStack.prototype.bindEvents = function() {
   var _this = this;
-  $(":button").on("click", function(){
+  $("#addStack").on("click", function(){
     _this.addDivTag();
   });
-  $(".container").on("click",".innerClass" ,function(event) {
-    $(".container div").addClass("innerClass");
-    if(event.target.id == _this.currentDiv.attr("id")) {
+  $(".container").on("click",".innerClass" ,function() {
+    $(".highlight").removeClass("highlight");
+    if(this.id == _this.currentDiv.attr("id")) {
       _this.removeDivTag();
     }
     else {
-      $(this).removeClass("innerClass").addClass("highlight");
+      $(this).addClass("highlight");
     } 
   });
 };
 
 $(document).ready(function() {
-  var createStackObj = new createStack();
-  createStackObj.bindEvents();    
+  var createStackObj = new CreateStack();
 });
